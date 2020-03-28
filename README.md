@@ -84,4 +84,15 @@ Once you get a test passing, you can enable the next one by changing `xtest` to
 ## Source
 
 The Bowling Game Kata at but UncleBob [http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata](http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata)
+
 The source was taken from [Exercism.io](https://exercism.io/my/tracks)
+
+## Note
+
+The `master` branch should remain a starting place for this Kata. Please do not merge solutions into `master`, though PRs that improve the developer experience are welcome.
+
+All pull requests and pushes are tested automatically using a GitHub action. This allows you to push your work to a feature branch and ensure the tests pass. 
+
+It is expected that the `master` branch will always fail! After all, it is the point of the Kata to make the tests pass.
+
+Thank-you for bowling with us.
