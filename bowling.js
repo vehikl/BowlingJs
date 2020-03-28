@@ -52,6 +52,10 @@ export class Bowling {
       }
     }
 
+    if (lastFrame[0] + lastFrame[1] === 10 && !lastFrame[2]) {
+      throw new Error('Score cannot be taken until the end of the game')
+    }
+
     let score = 0;
     let frameIndex = 0;
 

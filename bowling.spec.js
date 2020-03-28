@@ -199,7 +199,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Score cannot be taken until the end of the game'));
     });
 
-    xtest('bonus roll for a spare in the last frame must be rolled before score can be calculated', () => {
+    test('bonus roll for a spare in the last frame must be rolled before score can be calculated', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
