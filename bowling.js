@@ -6,13 +6,28 @@
 export class Bowling {
   constructor() {
     this._rolls = [];
+    this._currentFrameRolls = [];
   }
 
   roll(roll) {
     if (roll < 0) {
       throw new Error('Negative roll is invalid');
     }
+
+    if (roll > 10) {
+      throw new Error('Pin count exceeds pins on the lane');
+    }
+
+    this._currentFrameRolls.push(roll);
+    if ((this._currentFrameRolls.reduce((score, roll) => score + roll, 0)) > 10) {
+      throw new Error('Pin count exceeds pins on the lane');
+    }
+
     this._rolls.push(roll);
+
+    if (roll === 10 || this._currentFrameRolls.length === 2) {
+      this._currentFrameRolls = []
+    }
   }
 
   score() {

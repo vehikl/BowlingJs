@@ -108,20 +108,20 @@ describe('Bowling', () => {
         .toThrow(new Error('Negative roll is invalid'));
     });
 
-    xtest('a roll can not score more than 10 points', () => {
+    test('a roll can not score more than 10 points', () => {
       const bowling = new Bowling();
       expect(() => { bowling.roll(11); })
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('two rolls in a frame can not score more than 10 points', () => {
+    test('two rolls in a frame can not score more than 10 points', () => {
       const bowling = new Bowling();
       bowling.roll(5);
       expect(() => { bowling.roll(6); })
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('bonus roll after a strike in the last frame cannot score more than 10 points', () => {
+    test('bonus roll after a strike in the last frame cannot score more than 10 points', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -129,7 +129,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('two bonus rolls after a strike in the last frame can not score more than 10 points', () => {
+    test('two bonus rolls after a strike in the last frame can not score more than 10 points', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 5];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -137,14 +137,14 @@ describe('Bowling', () => {
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('two bonus rolls after a strike in the last frame can score more than 10 points if one is a strike', () => {
+    test('two bonus rolls after a strike in the last frame can score more than 10 points if one is a strike', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 6];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(26);
     });
 
-    xtest('the second bonus rolls after a strike in the last frame can not be a strike if the first one is not a strike', () => {
+    test('the second bonus rolls after a strike in the last frame can not be a strike if the first one is not a strike', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 6];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -152,7 +152,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('second bonus roll after a strike in the last frame cannot score more than 10 points', () => {
+    test('second bonus roll after a strike in the last frame cannot score more than 10 points', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
