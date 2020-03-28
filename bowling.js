@@ -16,8 +16,7 @@ export class Bowling {
     let score = 0;
     let frameIndex = 0;
 
-    while (frameIndex < 19) {
-
+    for (let i = 0; i < 10; i++) {
       if (this._rolls[frameIndex] === 10) {
         score += this._rolls[frameIndex];
         score += this._rolls[frameIndex + 1];
