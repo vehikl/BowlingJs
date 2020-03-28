@@ -16,10 +16,13 @@ export class Bowling {
     let score = 0;
     let frameIndex = 0;
 
-    while (frameIndex < this._rolls.length) {
+    while (frameIndex < 19) {
 
       if (this._rolls[frameIndex] === 10) {
-        // strike logic not implemented yet
+        score += this._rolls[frameIndex];
+        score += this._rolls[frameIndex + 1];
+        score += this._rolls[frameIndex + 2];
+        frameIndex += 1;
         continue;
       }
 
