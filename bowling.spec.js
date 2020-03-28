@@ -1,4 +1,5 @@
 import { Bowling } from './bowling';
+import { FrameGenerator } from './frame-generator';
 
 describe('Bowling', () => {
   describe('Check game can be scored correctly.', () => {
@@ -174,7 +175,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Score cannot be taken until the end of the game'));
     });
 
-    xtest('cannot roll if game already has ten frames', () => {
+    test('cannot roll if game already has ten frames', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -221,5 +222,81 @@ describe('Bowling', () => {
       expect(() => { bowling.roll(2); })
         .toThrow(new Error('Cannot roll after game is over'));
     });
+  });
+});
+
+describe('FrameGenerator', () => {
+  it('generates normal game', () => {
+    const roles = [3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6];
+    const frames = (new FrameGenerator).get(roles);
+
+    expect(frames).toStrictEqual([
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+    ])
+  });
+
+  it('generates spare bonus game', () => {
+    const roles = [3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 7, 1];
+    const frames = (new FrameGenerator).get(roles);
+
+    expect(frames).toStrictEqual([
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,7,1],
+    ])
+  });
+
+  it('generates strike bonus game', () => {
+    const roles = [3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 10, 10, 10];
+    const frames = (new FrameGenerator).get(roles);
+
+    expect(frames).toStrictEqual([
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [3,6],
+      [10,10,10],
+    ])
+  });
+
+
+
+  it('generates perfect game frame', () => {
+    const roles = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
+    const frames = (new FrameGenerator).get(roles);
+
+    expect(frames).toStrictEqual([
+      [10],
+      [10],
+      [10],
+      [10],
+      [10],
+      [10],
+      [10],
+      [10],
+      [10],
+      [10,10,10],
+    ])
   });
 });
