@@ -9,6 +9,9 @@ export class Bowling {
   }
 
   roll(roll) {
+    if (roll < 0) {
+      throw new Error('Negative roll is invalid');
+    }
     this._rolls.push(roll);
   }
 
