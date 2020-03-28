@@ -215,7 +215,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Cannot roll after game is over'));
     });
 
-    xtest('cannot roll after bonus rolls for strike', () => {
+    test('cannot roll after bonus rolls for strike', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 3, 2];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
