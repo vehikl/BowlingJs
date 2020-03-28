@@ -13,6 +13,14 @@ export class Bowling {
   }
 
   score() {
-    return this._rolls.reduce((score, roll) => score + roll, 0);
+    let score = 0;
+
+    for (let i = 0; i < this._rolls.length; i++) {
+      const roll = this._rolls[i];
+
+      score += roll;
+    }
+
+    return score;
   }
 }
