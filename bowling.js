@@ -7,10 +7,10 @@ export class Bowling {
   constructor() {
     this._rolls = [];
   }
+
   roll(roll) {
     this._rolls.push(roll);
   }
-
 
   score() {
     return this._rolls.reduce((score, roll) => score + roll, 0);
