@@ -99,7 +99,7 @@ export class Bowling {
         return
       }
 
-      if (finalFrame.length === 2) {
+      if (finalFrame.length >= 2) {
         throw new Error('Cannot roll after game is over');
       }
     }
