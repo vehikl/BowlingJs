@@ -206,7 +206,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Score cannot be taken until the end of the game'));
     });
 
-    xtest(' cannot roll after bonus roll for spare', () => {
+    xtest('cannot roll after bonus roll for spare', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 2];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
