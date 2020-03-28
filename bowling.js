@@ -14,11 +14,12 @@ export class Bowling {
 
   score() {
     let score = 0;
+    let frameIndex = 0;
 
-    for (let i = 0; i < this._rolls.length; i++) {
-      const roll = this._rolls[i];
-
-      score += roll;
+    while (frameIndex < this._rolls.length) {
+      score += this._rolls[frameIndex];
+      score += this._rolls[frameIndex + 1];
+      frameIndex += 2;
     }
 
     return score;
