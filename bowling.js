@@ -17,6 +17,20 @@ export class Bowling {
     let frameIndex = 0;
 
     while (frameIndex < this._rolls.length) {
+
+      if (this._rolls[frameIndex] === 10) {
+        // strike logic not implemented yet
+        continue;
+      }
+
+      if ((this._rolls[frameIndex] + this._rolls[frameIndex + 1]) === 10) {
+        score += this._rolls[frameIndex];
+        score += this._rolls[frameIndex + 1];
+        score += this._rolls[frameIndex + 2];
+        frameIndex += 2;
+        continue;
+      }
+
       score += this._rolls[frameIndex];
       score += this._rolls[frameIndex + 1];
       frameIndex += 2;
