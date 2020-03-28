@@ -4,6 +4,9 @@ export class FrameGenerator {
       if (frames.length < 10) {
         // strikes are alone in a frame
         if (roll === 10) {
+          if (!frames[0].length) {
+            frames.pop();
+          }
           frames.push([10]);
           return frames;
         }
