@@ -36,7 +36,13 @@ export class Bowling {
   }
 
   score() {
-    if (this._generateFrames(this._rolls).length < 10) {
+    const frames = this._generateFrames(this._rolls)
+    if (frames.length < 10) {
+      throw new Error('Score cannot be taken until the end of the game');
+    }
+
+    const lastFrame = frames[frames.length - 1];
+    if (lastFrame[0] === 10 && !lastFrame[1]) {
       throw new Error('Score cannot be taken until the end of the game');
     }
 

@@ -183,7 +183,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Cannot roll after game is over'));
     });
 
-    xtest('bonus rolls for a strike in the last frame must be rolled before score can be calculated', () => {
+    test('bonus rolls for a strike in the last frame must be rolled before score can be calculated', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
