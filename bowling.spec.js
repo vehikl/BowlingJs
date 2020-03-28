@@ -160,13 +160,13 @@ describe('Bowling', () => {
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('an unstarted game can not be scored', () => {
+    test('an unstarted game can not be scored', () => {
       const bowling = new Bowling();
       expect(() => { bowling.score(); })
         .toThrow(new Error('Score cannot be taken until the end of the game'));
     });
 
-    xtest('an incomplete game can not be scored', () => {
+    test('an incomplete game can not be scored', () => {
       const rolls = [0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });

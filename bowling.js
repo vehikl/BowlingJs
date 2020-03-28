@@ -31,6 +31,10 @@ export class Bowling {
   }
 
   score() {
+    if (this._rolls.length < 10) {
+      throw new Error('Score cannot be taken until the end of the game');
+    }
+
     let score = 0;
     let frameIndex = 0;
 
