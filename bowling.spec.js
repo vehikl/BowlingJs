@@ -37,35 +37,35 @@ describe('Bowling', () => {
       expect(bowling.score()).toEqual(31);
     });
 
-    xtest('a spare in the last frame gets a one roll bonus that is counted once', () => {
+    test('a spare in the last frame gets a one roll bonus that is counted once', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 7];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(17);
     });
 
-    xtest('a strike earns ten points in a frame with a single roll', () => {
+    test('a strike earns ten points in a frame with a single roll', () => {
       const rolls = [10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(10);
     });
 
-    xtest('points scored in the two rolls after a strike are counted twice as a bonus', () => {
+    test('points scored in the two rolls after a strike are counted twice as a bonus', () => {
       const rolls = [10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(26);
     });
 
-    xtest('consecutive strikes each get the two roll bonus', () => {
+    test('consecutive strikes each get the two roll bonus', () => {
       const rolls = [10, 10, 10, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(81);
     });
 
-    xtest('a strike in the last frame gets a two roll bonues that is counted once', () => {
+    test('a strike in the last frame gets a two roll bonues that is counted once', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 7, 1];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
