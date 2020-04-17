@@ -18,7 +18,21 @@ export class Bowling {
       throw new Error('Pin count exceeds pins on the lane');
     }
 
-    console.log(this.toFrames());
+    const frames = this.toFrames();
+    const lastFrame = frames[frames.length - 1];
+
+    if(frames.length === 10 && lastFrame && lastFrame.length === 2) {
+      console.log(lastFrame, num);
+      if(num + lastFrame[1] > 10) {
+        throw new Error('Pin count exceeds pins on the lane');
+      }
+    }
+
+    if(lastFrame && lastFrame.length === 1 && lastFrame[0] !== 10) {
+      if(lastFrame[0] + num > 10) {
+        throw new Error('Pin count exceeds pins on the lane');
+      }
+    }
 
     this.rolls.push(num);
   }
@@ -55,6 +69,6 @@ export class Bowling {
       final.push(rolls);
     }
 
-    return final;
+    return final.filter(v => v.length !== 0);
   }
 }
