@@ -102,19 +102,19 @@ describe('Bowling', () => {
   });
 
   describe('Check game rules.', () => {
-    xtest('rolls can not score negative points', () => {
+    test('rolls can not score negative points', () => {
       const bowling = new Bowling();
       expect(() => { bowling.roll(-1); })
         .toThrow(new Error('Negative roll is invalid'));
     });
 
-    xtest('a roll can not score more than 10 points', () => {
+    test('a roll can not score more than 10 points', () => {
       const bowling = new Bowling();
       expect(() => { bowling.roll(11); })
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('two rolls in a frame can not score more than 10 points', () => {
+    test('two rolls in a frame can not score more than 10 points', () => {
       const bowling = new Bowling();
       bowling.roll(5);
       expect(() => { bowling.roll(6); })
