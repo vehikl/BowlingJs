@@ -48,6 +48,10 @@ export class Bowling {
     const frames = this.toFrames();
     const lastFrame = frames[frames.length - 1];
 
+    if (frames.length === 10 && lastFrame.length === 3) {
+      throw new Error('Cannot roll after game is over');
+    }
+
     if(frames.length === 10 && lastFrame.length == 2 && !this.isSpare(lastFrame) && !this.isStrike(lastFrame)) {
         throw new Error('Cannot roll after game is over');
     }
