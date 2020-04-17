@@ -72,28 +72,28 @@ describe('Bowling', () => {
       expect(bowling.score()).toEqual(18);
     });
 
-    xtest('rolling a spare with the two roll bonus does not get a bonus roll', () => {
+    test('rolling a spare with the two roll bonus does not get a bonus roll', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 7, 3];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(20);
     });
 
-    xtest('strikes with the two roll bonus do not get bonus rolls', () => {
+    test('strikes with the two roll bonus do not get bonus rolls', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(30);
     });
 
-    xtest('a strike with the one roll bonus after a spare in the last frame does not get a bonus', () => {
+    test('a strike with the one roll bonus after a spare in the last frame does not get a bonus', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 10];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(20);
     });
 
-    xtest('all strikes is a perfect game', () => {
+    test('all strikes is a perfect game', () => {
       const rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
