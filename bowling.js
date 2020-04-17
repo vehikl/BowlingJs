@@ -4,15 +4,16 @@
 //
 
 export class Bowling {
+
   constructor() {
-    this.rolls = 0;
+    this.rolls = [];
   }
 
   roll(num) {
-    this.rolls += num;
+    this.rolls.push(num);
   }
 
   score() {
-    return this.rolls;
+    return this.rolls.reduce((acc, v) => acc+v, 0);
   }
 }
