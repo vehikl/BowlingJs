@@ -14,6 +14,12 @@ export class Bowling {
   }
 
   score() {
-    return this.rolls.reduce((acc, v) => acc+v, 0);
+    var final = 0;
+    var rollCounter = 0;
+    for(var i =0; i< 10; i++) {
+
+    }
+
+    return final;
   }
 }
