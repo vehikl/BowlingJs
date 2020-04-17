@@ -9,6 +9,33 @@ export class Bowling {
     this.rolls = [];
   }
 
+  isStrike(frame) {
+    if(!frame || frame.length === 0) return false;
+    return frame[0] === 10;
+  }
+
+  isSpare(frame) {
+    if(!frame || frame.length !== 2) return false;
+    return frame[0] + frame[1] === 10;
+  }
+
+  getLastFrame() {
+    const frames = this.toFrames();
+    return frames[frames.length - 1];
+  }
+
+  isLastFrameComplete(frame) {
+    if(this.isStrike(frame)) {
+      return frame.length === 3;
+    }
+
+    if(this.isSpare(frame)) {
+      return frame.length === 3;
+    }
+
+    return frame.length === 2;
+  }
+
   roll(num) {
     if (num < 0) {
       throw new Error('Negative roll is invalid');
@@ -21,7 +48,9 @@ export class Bowling {
     const frames = this.toFrames();
     const lastFrame = frames[frames.length - 1];
 
-    console.log(lastFrame, num);
+    if(frames.length === 10 && lastFrame.length == 2 && !this.isSpare(lastFrame) && !this.isStrike(lastFrame)) {
+        throw new Error('Cannot roll after game is over');
+    }
 
     if (frames && frames.length === 10) {
       if (lastFrame[0] === 10) {
@@ -43,6 +72,17 @@ export class Bowling {
   }
 
   score() {
+    const lastFrame = this.getLastFrame();
+    if(this.toFrames().length === 10 && this.isStrike(lastFrame) || this.isSpare(lastFrame)) {
+      if(lastFrame.length < 3) {
+        throw new Error('Score cannot be taken until the end of the game');
+      }
+    }
+
+    if(this.toFrames().length !== 10) {
+      throw new Error('Score cannot be taken until the end of the game');
+    }
+
     let final = 0;
     for(let i =0; i< 10; i++) {
       const frame = this.rolls[0] === 10 ? this.rolls.splice(0,1) : this.rolls.splice(0,2);

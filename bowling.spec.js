@@ -137,14 +137,14 @@ describe('Bowling', () => {
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('two bonus rolls after a strike in the last frame can score more than 10 points if one is a strike', () => {
+    test('two bonus rolls after a strike in the last frame can score more than 10 points if one is a strike', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 6];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(26);
     });
 
-    xtest('the second bonus rolls after a strike in the last frame can not be a strike if the first one is not a strike', () => {
+    test('the second bonus rolls after a strike in the last frame can not be a strike if the first one is not a strike', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 6];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -152,7 +152,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('second bonus roll after a strike in the last frame cannot score more than 10 points', () => {
+    test('second bonus roll after a strike in the last frame cannot score more than 10 points', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -160,13 +160,13 @@ describe('Bowling', () => {
         .toThrow(new Error('Pin count exceeds pins on the lane'));
     });
 
-    xtest('an unstarted game can not be scored', () => {
+    test('an unstarted game can not be scored', () => {
       const bowling = new Bowling();
       expect(() => { bowling.score(); })
         .toThrow(new Error('Score cannot be taken until the end of the game'));
     });
 
-    xtest('an incomplete game can not be scored', () => {
+    test('an incomplete game can not be scored', () => {
       const rolls = [0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -174,7 +174,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Score cannot be taken until the end of the game'));
     });
 
-    xtest('cannot roll if game already has ten frames', () => {
+    test('cannot roll if game already has ten frames', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -182,7 +182,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Cannot roll after game is over'));
     });
 
-    xtest('bonus rolls for a strike in the last frame must be rolled before score can be calculated', () => {
+    test('bonus rolls for a strike in the last frame must be rolled before score can be calculated', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -190,7 +190,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Score cannot be taken until the end of the game'));
     });
 
-    xtest('both bonus rolls for a strike in the last frame must be rolled before score can be calculated', () => {
+    test('both bonus rolls for a strike in the last frame must be rolled before score can be calculated', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -198,7 +198,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Score cannot be taken until the end of the game'));
     });
 
-    xtest('bonus roll for a spare in the last frame must be rolled before score can be calculated', () => {
+    test('bonus roll for a spare in the last frame must be rolled before score can be calculated', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -206,7 +206,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Score cannot be taken until the end of the game'));
     });
 
-    xtest('cannot roll after bonus roll for spare', () => {
+    test('cannot roll after bonus roll for spare', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 2];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
@@ -214,7 +214,7 @@ describe('Bowling', () => {
         .toThrow(new Error('Cannot roll after game is over'));
     });
 
-    xtest('cannot roll after bonus rolls for strike', () => {
+    test('cannot roll after bonus rolls for strike', () => {
       const rolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 3, 2];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
