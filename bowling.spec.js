@@ -9,21 +9,21 @@ describe('Bowling', () => {
       expect(bowling.score()).toEqual(0);
     });
 
-    xtest('should be able to score a game with no strikes or spares', () => {
+    test('should be able to score a game with no strikes or spares', () => {
       const rolls = [3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(90);
     });
 
-    xtest('a spare followed by zeros is worth ten points', () => {
+    test('a spare followed by zeros is worth ten points', () => {
       const rolls = [6, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
       expect(bowling.score()).toEqual(10);
     });
 
-    xtest('points scored in the roll after a spare are counted twice', () => {
+    test('points scored in the roll after a spare are counted twice', () => {
       const rolls = [6, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const bowling = new Bowling();
       rolls.forEach((roll) => { bowling.roll(roll); });
