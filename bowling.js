@@ -17,7 +17,7 @@ export class Bowling {
   }
 
   isOnLastFrame() {
-    return this.toFrames() && this.toFrames().length === 10
+    return this.toFrames() && this.toFrames().length === 10;
   }
 
   getLastFrame() {
@@ -37,7 +37,7 @@ export class Bowling {
     return frame.length === 2;
   }
 
-  somePrivateCheck(num) {
+  checkIfBonusRollsValid(num) {
     const lastFrame = this.getLastFrame();
     if (!lastFrame) return;
 
@@ -49,39 +49,46 @@ export class Bowling {
     if (this.isOnLastFrame() && firstRollIsStrike && frameHasTwoRolls && secondRollNotStrike && lastTwoRollsGreaterThanTen) {
         throw new InvalidPinCountError();
     }
-
   }
 
-  roll(num) {
-    if (num < 0) {
-      throw new NegativeRollError();
-    }
+  isFrameValid(num) {
+    const lastFrame = this.getLastFrame();
+    if (!lastFrame) return;
 
-    if (num > 10 ) {
+    const firstRollNotStrike = lastFrame[0] !== 10;
+    const hasOnlyOneRoll = lastFrame.length === 1;
+    const lastTwoRollsGreaterThanTen = (lastFrame[0] + num) > 10;
+
+    if(hasOnlyOneRoll && firstRollNotStrike && lastTwoRollsGreaterThanTen) {
       throw new InvalidPinCountError();
     }
+  }
 
+  isGameOver() {
     const frames = this.toFrames();
     const lastFrame = frames[frames.length - 1];
 
-    if (frames.length === 10 && lastFrame.length === 3) {
+    if (this.isOnLastFrame() && lastFrame.length === 3) {
       throw new GameOverError();
     }
 
-    if(frames.length === 10 && lastFrame.length == 2 && !this.isSpare(lastFrame) && !this.isStrike(lastFrame)) {
+    if(this.isOnLastFrame() && lastFrame.length == 2 && !this.isSpare(lastFrame) && !this.isStrike(lastFrame)) {
       throw new GameOverError();
     }
+  }
 
+  isRollValid(num) {
+    if (num < 0) throw new NegativeRollError();
+    if (num > 10) throw new InvalidPinCountError();
+  }
 
-    this.somePrivateCheck(num, frames);
+  roll(num) {
+    this.isRollValid(num);
 
-    //Logic boy 2
-    //
-    if(lastFrame && lastFrame.length === 1 && lastFrame[0] !== 10) {
-      if(lastFrame[0] + num > 10) {
-        throw new InvalidPinCountError();
-      }
-    }
+    this.isGameOver();
+
+    this.isFrameValid(num);
+    this.checkIfBonusRollsValid(num);
 
     this.rolls.push(num);
   }
