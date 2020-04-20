@@ -16,6 +16,10 @@ export class Bowling {
     return (!frame || frame.length !== 2) ? false : frame[0] + frame[1] === 10;
   }
 
+  isOnLastFrame() {
+    return this.toFrames() && this.toFrames().length === 10
+  }
+
   getLastFrame() {
     const frames = this.toFrames();
     return frames[frames.length - 1];
@@ -33,21 +37,17 @@ export class Bowling {
     return frame.length === 2;
   }
 
-  somePrivateCheck(num, frames, lastFrame) {
-    const isOnLastFrame = frames && frames.length === 10;
-    const firstRollIsStrike = lastFrame && lastFrame[0] === 10;
-    const frameHasTwoRolls = lastFrame && lastFrame.length === 2;
-    const secondRollNotStrike = lastFrame && lastFrame[1] !== 10;
-    const lastTwoRollsGreaterThanTen = lastFrame && lastFrame[1] + num > 10;
+  somePrivateCheck(num) {
+    const lastFrame = this.getLastFrame();
+    if (!lastFrame) return;
 
-    if (isOnLastFrame) {
-      if (firstRollIsStrike) {
-        if (frameHasTwoRolls) {
-          if (secondRollNotStrike && lastTwoRollsGreaterThanTen) {
-            throw new InvalidPinCountError();
-          }
-        }
-      }
+    const firstRollIsStrike = lastFrame[0] === 10;
+    const frameHasTwoRolls = lastFrame.length === 2;
+    const secondRollNotStrike = lastFrame[1] !== 10;
+    const lastTwoRollsGreaterThanTen = lastFrame[1] + num > 10;
+
+    if (this.isOnLastFrame() && firstRollIsStrike && frameHasTwoRolls && secondRollNotStrike && lastTwoRollsGreaterThanTen) {
+        throw new InvalidPinCountError();
     }
 
   }
@@ -73,7 +73,7 @@ export class Bowling {
     }
 
 
-    this.somePrivateCheck(num, frames, lastFrame);
+    this.somePrivateCheck(num, frames);
 
     //Logic boy 2
     //
