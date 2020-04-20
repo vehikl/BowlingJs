@@ -4,19 +4,16 @@ class ScoreBeforeGameEndError extends Error { constructor() { super('Score canno
 class NegativeRollError extends Error { constructor() { super('Negative roll is invalid'); } }
 
 export class Bowling {
-
   constructor() {
     this.rolls = [];
   }
 
   isStrike(frame) {
-    if(!frame || frame.length === 0) return false;
-    return frame[0] === 10;
+    return (!frame || frame.length === 0) ? false : frame[0] === 10;
   }
 
   isSpare(frame) {
-    if(!frame || frame.length !== 2) return false;
-    return frame[0] + frame[1] === 10;
+    return (!frame || frame.length !== 2) ? false : frame[0] + frame[1] === 10;
   }
 
   getLastFrame() {
@@ -34,6 +31,21 @@ export class Bowling {
     }
 
     return frame.length === 2;
+  }
+
+  somePrivateCheck(num, frames, lastFrame) {
+    const isOnLastFrame = frames && frames.length === 10;
+
+    if (isOnLastFrame) {
+      if (lastFrame[0] === 10) {
+        if (lastFrame.length === 2) {
+          if (lastFrame[1] !== 10 && lastFrame[1] + num > 10) {
+            throw new InvalidPinCountError();
+          }
+        }
+      }
+    }
+
   }
 
   roll(num) {
@@ -56,16 +68,11 @@ export class Bowling {
       throw new GameOverError();
     }
 
-    if (frames && frames.length === 10) {
-      if (lastFrame[0] === 10) {
-        if (lastFrame.length === 2) {
-          if (lastFrame[1] !== 10 && lastFrame[1] + num > 10) {
-            throw new InvalidPinCountError();
-          }
-        }
-      }
-    }
 
+    this.somePrivateCheck(num, frames, lastFrame);
+
+    //Logic boy 2
+    //
     if(lastFrame && lastFrame.length === 1 && lastFrame[0] !== 10) {
       if(lastFrame[0] + num > 10) {
         throw new InvalidPinCountError();
@@ -108,7 +115,7 @@ export class Bowling {
   toFrames() {
     let final = [];
     let rolls = [...this.rolls];
-    for (let i =0; i< 10; i++) {
+    for (let i =0; i < 10; i++) {
       if (i !== 9) {
         const frame = rolls[0] === 10 ? rolls.splice(0,1) : rolls.splice(0,2);
         final.push(frame);
