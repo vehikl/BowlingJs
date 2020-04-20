@@ -35,11 +35,15 @@ export class Bowling {
 
   somePrivateCheck(num, frames, lastFrame) {
     const isOnLastFrame = frames && frames.length === 10;
+    const firstRollIsStrike = lastFrame && lastFrame[0] === 10;
+    const frameHasTwoRolls = lastFrame && lastFrame.length === 2;
+    const secondRollNotStrike = lastFrame && lastFrame[1] !== 10;
+    const lastTwoRollsGreaterThanTen = lastFrame && lastFrame[1] + num > 10;
 
     if (isOnLastFrame) {
-      if (lastFrame[0] === 10) {
-        if (lastFrame.length === 2) {
-          if (lastFrame[1] !== 10 && lastFrame[1] + num > 10) {
+      if (firstRollIsStrike) {
+        if (frameHasTwoRolls) {
+          if (secondRollNotStrike && lastTwoRollsGreaterThanTen) {
             throw new InvalidPinCountError();
           }
         }
