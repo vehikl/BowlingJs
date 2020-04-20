@@ -89,39 +89,54 @@ export class Bowling {
     this.assertBonusRollsValid(num);
   }
 
+  assertTenFrames() {
+    if(this.toFrames().length !== 10) {
+      throw new ScoreBeforeGameEndError();
+    }
+  }
+
+  assertLastFrameComplete() {
+    const lastFrame = this.getLastFrame();
+    if(this.isOnLastFrame() && this.isStrike(lastFrame) || this.isSpare(lastFrame)) {
+      if(lastFrame.length < 3) {
+        throw new ScoreBeforeGameEndError();
+      }
+    }
+  }
+
+  validateScore() {
+    this.assertTenFrames();
+    this.assertLastFrameComplete();
+  }
+
   roll(num) {
     this.validateRoll(num);
     this.rolls.push(num);
   }
 
+  scoreFrame() {
+    const frame = this.rolls[0] === 10 ? this.rolls.splice(0,1) : this.rolls.splice(0,2);
+    let frameScore = frame.reduce((accumulator, value) => accumulator + value, 0);
+
+    if (frameScore === 10 && frame.length === 1) {
+      frameScore += this.rolls[0];
+      frameScore += this.rolls[1];
+    } else if (frameScore === 10 && frame.length === 2) {
+      frameScore += this.rolls[0];
+    }
+
+    return frameScore;
+  }
+
   score() {
-    const lastFrame = this.getLastFrame();
-    if(this.toFrames().length === 10 && this.isStrike(lastFrame) || this.isSpare(lastFrame)) {
-      if(lastFrame.length < 3) {
-        throw new ScoreBeforeGameEndError();
-      }
+    this.validateScore();
+
+    let finalScore = 0;
+    for (let i=0; i<10; i++) {
+      finalScore += this.scoreFrame();
     }
 
-    if(this.toFrames().length !== 10) {
-      throw new ScoreBeforeGameEndError();
-    }
-
-    let final = 0;
-    for(let i =0; i< 10; i++) {
-      const frame = this.rolls[0] === 10 ? this.rolls.splice(0,1) : this.rolls.splice(0,2);
-      let frameScore = frame.reduce((accumulator, value) => accumulator + value, 0);
-
-      if(frameScore === 10 && frame.length === 1) {
-        frameScore += this.rolls[0];
-        frameScore += this.rolls[1];
-      } else if (frameScore === 10 && frame.length === 2) {
-        frameScore += this.rolls[0];
-      }
-
-      final += frameScore;
-    }
-
-    return final;
+    return finalScore;
   }
 
   toFrames() {
