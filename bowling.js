@@ -37,7 +37,7 @@ export class Bowling {
     return frame.length === 2;
   }
 
-  checkIfBonusRollsValid(num) {
+  assertBonusRollsValid(num) {
     const lastFrame = this.getLastFrame();
     if (!lastFrame) return;
 
@@ -51,7 +51,7 @@ export class Bowling {
     }
   }
 
-  isFrameValid(num) {
+  assertFrameValid(num) {
     const lastFrame = this.getLastFrame();
     if (!lastFrame) return;
 
@@ -64,7 +64,7 @@ export class Bowling {
     }
   }
 
-  isGameOver() {
+  assertGameNotOver() {
     const frames = this.toFrames();
     const lastFrame = frames[frames.length - 1];
 
@@ -77,19 +77,20 @@ export class Bowling {
     }
   }
 
-  isRollValid(num) {
+  assertRollValid(num) {
     if (num < 0) throw new NegativeRollError();
     if (num > 10) throw new InvalidPinCountError();
   }
 
+  validateRoll(num) {
+    this.assertRollValid(num);
+    this.assertGameNotOver();
+    this.assertFrameValid(num);
+    this.assertBonusRollsValid(num);
+  }
+
   roll(num) {
-    this.isRollValid(num);
-
-    this.isGameOver();
-
-    this.isFrameValid(num);
-    this.checkIfBonusRollsValid(num);
-
+    this.validateRoll(num);
     this.rolls.push(num);
   }
 
