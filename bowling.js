@@ -109,9 +109,13 @@ export class Bowling {
     this.assertLastFrameComplete();
   }
 
+  addRoll(num) {
+    this.rolls.push(num);
+  }
+
   roll(num) {
     this.validateRoll(num);
-    this.rolls.push(num);
+    this.addRoll(num);
   }
 
   scoreFrame() {
