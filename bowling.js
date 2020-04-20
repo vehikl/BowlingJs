@@ -1,7 +1,7 @@
-//
-// This is only a SKELETON file for the 'Bowling' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+class InvalidPinCountError extends Error { constructor() { super('Pin count exceeds pins on the lane'); } }
+class GameOverError extends Error { constructor() { super('Cannot roll after game is over'); } }
+class ScoreBeforeGameEndError extends Error { constructor() { super('Score cannot be taken until the end of the game'); } }
+class NegativeRollError extends Error { constructor() { super('Negative roll is invalid'); } }
 
 export class Bowling {
 
@@ -38,29 +38,29 @@ export class Bowling {
 
   roll(num) {
     if (num < 0) {
-      throw new Error('Negative roll is invalid');
+      throw new NegativeRollError();
     }
 
     if (num > 10 ) {
-      throw new Error('Pin count exceeds pins on the lane');
+      throw new InvalidPinCountError();
     }
 
     const frames = this.toFrames();
     const lastFrame = frames[frames.length - 1];
 
     if (frames.length === 10 && lastFrame.length === 3) {
-      throw new Error('Cannot roll after game is over');
+      throw new GameOverError();
     }
 
     if(frames.length === 10 && lastFrame.length == 2 && !this.isSpare(lastFrame) && !this.isStrike(lastFrame)) {
-        throw new Error('Cannot roll after game is over');
+      throw new GameOverError();
     }
 
     if (frames && frames.length === 10) {
       if (lastFrame[0] === 10) {
         if (lastFrame.length === 2) {
           if (lastFrame[1] !== 10 && lastFrame[1] + num > 10) {
-            throw new Error('Pin count exceeds pins on the lane');
+            throw new InvalidPinCountError();
           }
         }
       }
@@ -68,7 +68,7 @@ export class Bowling {
 
     if(lastFrame && lastFrame.length === 1 && lastFrame[0] !== 10) {
       if(lastFrame[0] + num > 10) {
-        throw new Error('Pin count exceeds pins on the lane');
+        throw new InvalidPinCountError();
       }
     }
 
@@ -79,12 +79,12 @@ export class Bowling {
     const lastFrame = this.getLastFrame();
     if(this.toFrames().length === 10 && this.isStrike(lastFrame) || this.isSpare(lastFrame)) {
       if(lastFrame.length < 3) {
-        throw new Error('Score cannot be taken until the end of the game');
+        throw new ScoreBeforeGameEndError();
       }
     }
 
     if(this.toFrames().length !== 10) {
-      throw new Error('Score cannot be taken until the end of the game');
+      throw new ScoreBeforeGameEndError();
     }
 
     let final = 0;
